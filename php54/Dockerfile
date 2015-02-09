@@ -4,7 +4,7 @@ FROM debian:wheezy
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install base deps
-RUN apt-get update && apt-get install -y --force-yes curl supervisor
+RUN apt-get update && apt-get install -y --force-yes curl supervisor git && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install php deps
 RUN apt-get update && apt-get install -y --force-yes apache2 php5 php5-curl php5-mysqlnd php5-gd php-apc
@@ -16,9 +16,9 @@ ADD apache-vhost.conf /etc/apache2/sites-enabled/default
 ADD supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 RUN echo "apc.shm_size = 128M" >> /etc/php5/mods-available/apc.ini
 
-# Cleanup:
-RUN apt-get clean
-RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# Install CLI tools:
+RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/bin/composer
+RUN mkdir /usr/share/drush && cd /usr/share/drush && composer require drush/drush:dev-master && ln -s /usr/share/drush/vendor/bin/drush /usr/bin/drush
 
 VOLUME ["/srv"]
 WORKDIR /srv
