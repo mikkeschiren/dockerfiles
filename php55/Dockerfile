@@ -4,7 +4,7 @@ FROM debian:wheezy
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install base deps:
-RUN apt-get update && apt-get install -y --force-yes curl supervisor git && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get update && apt-get install -y --force-yes curl supervisor git mysql && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install dotdeb repo:
 RUN curl http://www.dotdeb.org/dotdeb.gpg | apt-key add -
