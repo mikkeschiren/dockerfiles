@@ -19,7 +19,7 @@ RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/bi
 RUN mkdir /usr/share/drush && cd /usr/share/drush && composer require drush/drush:dev-master && ln -s /usr/share/drush/vendor/bin/drush /usr/bin/drush
 
 # Configure:
-RUN sed -i "s/; date.timezone =/date.timezone = America\/New_York/" /etc/php5/cli/php.ini /etc/php5/apache2/php.ini
+RUN sed -i "/date\.timezone =/c\date.timezone = America\/New_York" /etc/php5/cli/php.ini /etc/php5/apache2/php.ini
 ADD apache-vhost.conf /etc/apache2/sites-enabled/default
 ADD supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 RUN echo "opcache.memory_consumption = 128" >> /etc/php5/mods-available/opcache.ini
