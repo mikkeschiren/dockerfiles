@@ -20,7 +20,6 @@ RUN echo "apc.shm_size = 128M" >> /etc/php5/mods-available/apc.ini
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/bin/composer
 RUN mkdir /usr/share/drush && cd /usr/share/drush && composer require drush/drush:dev-master && ln -s /usr/share/drush/vendor/bin/drush /usr/bin/drush
 
-VOLUME ["/srv"]
 WORKDIR /srv
 EXPOSE 80
 
