@@ -24,7 +24,6 @@ ADD apache-vhost.conf /etc/apache2/sites-enabled/default
 ADD supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 RUN echo "opcache.memory_consumption = 128" >> /etc/php5/mods-available/opcache.ini
 
-VOLUME ["/srv"]
 WORKDIR /srv
 EXPOSE 80
 
