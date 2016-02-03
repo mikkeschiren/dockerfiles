@@ -18,6 +18,10 @@ RUN a2dissite default && a2enmod rewrite && a2enmod php5
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/bin/composer
 RUN mkdir /usr/share/drush && cd /usr/share/drush && composer require drush/drush:dev-master && ln -s /usr/share/drush/vendor/bin/drush /usr/bin/drush
 
+# Install Drupal Console 
+RUN curl -sS https://drupalconsole.com/installer -L -o drupal.phar | php && mv drupal.phar /usr/local/bin/drupal
+RUN chmod +x /usr/local/bin/drupal
+
 # Configure:
 RUN sed -i "/date\.timezone =/c\date.timezone = America\/New_York" /etc/php5/cli/php.ini /etc/php5/apache2/php.ini
 ADD apache-vhost.conf /etc/apache2/sites-enabled/default
